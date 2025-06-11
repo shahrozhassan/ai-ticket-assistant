@@ -11,5 +11,19 @@ export const signup = async(req,res)=>{
     
     const user = await User.create({email,password: hashed, skills});
 
+    //INNGEST FIRE
     
+    await inngest.send({
+        name : user/signup,
+        data : {
+            email
+        }
+    });
+
+    const jwt = jwt.sign({
+        _id : user._id,
+        role: user.role},
+    process.env.JWT_SECRET
+    );
+
 }
